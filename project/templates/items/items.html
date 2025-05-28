@@ -1,0 +1,20 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Предметы</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Предметы</h1>
+        <ul>
+            {% for item in items %}
+                <li><a href="{% url 'item' item.id %}">{{ item.name }}</a></li>
+            {% endfor %}
+            {% if items|length == 0 %}
+                <li>Товаров не найдено.</li>
+            {% endif %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ {{order.id}}</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .order-details {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .discounts-taxes {
+            font-size: 1em;
+            color: #666;
+        }
+        .items {
+            font-size: 1em;
+            color: #999;
+        }
+        button {
+            padding: 10px 20px;
+            background: #5faaca;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Заказ {{order.id}}</h1>
+    <div class="order-details">
+        <p>Скидки: {% for discount in order.discounts.all %}{{ discount.name }}: {{ discount.discount}}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+        <p>Налоги: {% for tax in order.taxes.all %}{{ tax.type }}: {{ tax.rate }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    </div>
+    <div class="items">
+        <h2>Предметы в заказе:</h2>
+        <ul>
+            {% for item in order.items.all %}
+                <li>{{ item.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <button onclick="buyItem()">Buy</button>
+    <script>
+        const stripe = Stripe('{{ STRIPE_PUBLISHABLE_KEY }}');
+        async function buyItem() {
+            try {
+                const response = await fetch('/buy/{{ order.id }}', {
+                    method: 'GET',
+                });
+                const data = await response.json();
+                console.log(data);
+                if (data.session_id) {
+                    stripe.redirectToCheckout({ sessionId: data.session_id });
+                } else {
+                    alert('Ошибка: ' + data.error);
+                }
+            } catch (error) {
+                alert('Ошибка: ' + error);
+            }
+        }
+    </script>
+</body>
+</html>

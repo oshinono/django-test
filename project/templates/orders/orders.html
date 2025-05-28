@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все заказы</title>
+    <style>
+        .order-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        li {
+            list-style: none;
+            padding: 10px;
+            border: 1px solid #c5c5c5;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Все заказы</h1>
+    <div class="order-list">
+        <ul>
+            {% for order in orders %}
+            <a href="{% url 'order' order.id %}"><li>Заказ {{order.id}}</li></a>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
