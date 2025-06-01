@@ -10,12 +10,12 @@ services:
     tty: true
 
   postgres:
+    container_name: postgres_prod
     image: postgres:17
     env_file:
       - ../.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  
   nginx:
     image: nginx:latest
     ports:
