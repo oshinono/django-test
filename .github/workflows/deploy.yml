@@ -32,6 +32,6 @@ jobs:
           username: ${{ secrets.PROD_USERNAME }}
           key: ${{ secrets.PROD_SSH_KEY }}
           script: |
-            cd /home/stripe-test
+            cd /root/stripe-test
             docker compose -f docker/docker-compose-prod.yml pull
             docker compose -f docker/docker-compose-prod.yml up -d
