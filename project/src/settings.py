@@ -26,8 +26,10 @@ SECRET_KEY = 'django-insecure-v4ssh8i!tt5v@!9=u@q304m65e3zmuoakt59b!tzcn2m=#shc#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['app', 'http://31.128.46.67']
-
+ALLOWED_HOSTS = ['app']
+CORS_ALLOWED_ORIGINS = [
+    'http://31.128.46.67'
+]
 
 # Application definition
 
@@ -42,10 +44,13 @@ INSTALLED_APPS = [
     'discounts.apps.DiscountsConfig',
     'taxes.apps.TaxesConfig',
     'orders.apps.OrdersConfig',
-    'payments.apps.PaymentsConfig'
+    'payments.apps.PaymentsConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
