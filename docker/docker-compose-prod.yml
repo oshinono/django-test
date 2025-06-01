@@ -10,12 +10,18 @@ services:
     tty: true
 
   postgres:
-    container_name: postgres
     image: postgres:17
     env_file:
       - ../.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ../nginx/nginx.conf:/etc/nginx/nginx.conf
 
 volumes:
   postgres_data:
