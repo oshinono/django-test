@@ -12,7 +12,7 @@ class PaymentService:
     def create(cls, order_id: uuid.UUID, currency: str):
         order = get_object_or_404(Order, id=order_id)
 
-        if settings.DEBUG:
+        if settings.debug:
             success_url = f'http://localhost/orders'
             cancel_url = f'http://localhost/order/{order_id}'
         else:
