@@ -56,7 +56,7 @@ MIDDLEWARE = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost'
+    'http://localhost', 'http://127.0.0.1', f'http://{settings.prod_host}'
 ]
 
 ROOT_URLCONF = 'src.urls'
