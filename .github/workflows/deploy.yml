@@ -33,6 +33,7 @@ jobs:
           key: ${{ secrets.PROD_SSH_KEY }}
           script: |
             cd /root/stripe-test
+            docker compose -f docker/docker-compose-prod.yml down
             git pull
             docker image rm ${{ secrets.DOCKERHUB_USERNAME }}/stripe-test:latest || true
             docker compose -f docker/docker-compose-prod.yml pull
