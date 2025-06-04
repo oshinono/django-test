@@ -12,6 +12,10 @@ class Settings(BaseSettings):
     db_host: str
     db_port: int
 
+    secret_key: str
+    debug: bool
+    prod_host: str
+
     # class Config:
     #     env_file = '.env'
 

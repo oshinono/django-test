@@ -8,6 +8,8 @@ services:
       - postgres
     stdin_open: true
     tty: true
+    volumes:
+      - static_volume:/app/project/staticfiles
 
   postgres:
     image: postgres:17
@@ -21,6 +23,10 @@ services:
       - 80:80
     volumes:
       - ../nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/app/project/staticfiles
+    depends_on:
+      - app
 
 volumes:
   postgres_data:
+  static_volume:
