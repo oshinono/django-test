@@ -12,8 +12,12 @@ class PaymentService:
     def create(cls, order_id: uuid.UUID, currency: str):
         order = get_object_or_404(Order, id=order_id)
 
-        success_url = f'http://localhost:8000/orders'
-        cancel_url = f'http://localhost:8000/order/{order_id}'
+        if settings.DEBUG:
+            success_url = f'http://localhost/orders'
+            cancel_url = f'http://localhost/order/{order_id}'
+        else:
+            success_url = f'http://{settings.prod_host}/orders'
+            cancel_url = f'http://{settings.prod_host}/order/{order_id}'
 
         session_create_info = {
             'mode': 'payment',
